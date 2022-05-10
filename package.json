@@ -1,0 +1,46 @@
+{
+  "name": "openfairviewer_firmstunaatlas",
+  "version": "1.0.0",
+  "description": "OpenFairViewer for FIRMS Tuna Atlas",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build --public-url ./ index.html"
+  },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "node_modules/openfairviewer/src/templates",
+        "staticOutDir": "templates"
+      },
+      {
+        "staticPath": "node_modules/openfairviewer/src/img",
+        "staticOutDir": "img"
+      },
+      {
+        "staticPath": "node_modules/openfairviewer/src/i18n",
+        "staticOutDir": "i18n"
+      },
+      {
+        "staticPath": "img/banner",
+        "staticOutDir": "img/banner"
+      },
+      {
+        "staticPath": "img/partners",
+        "staticOutDir": "img/partners"
+      }
+    ]
+  },
+  "author": "Emmanuel Blondel",
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "parcel-bundler": "^1.12.3",
+    "parcel-plugin-static-files-copy": "^2.6.0"
+  },
+  "dependencies": {
+    "ol": "^6.5.0",
+    "ol-loadingpanel": "github:eblondel/ol-loadingpanel#2.0.2",
+    "openfairviewer": "github:eblondel/openfairviewer"
+  }
+}

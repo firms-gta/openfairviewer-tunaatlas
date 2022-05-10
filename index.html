@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+
+<head>
+    <title>FIRMS Tuna Atlas</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Web-mapping application to browse statistics of Tuna fisheries around the world" />
+    <meta name="author-corporate" content="FAO of the UN" />
+    <meta name="copyright" content="http://www.fao.org/corp/copyright/en/" />
+    <meta name="keywords" content="FIRMS, Marine Resource, Tuna, Fishery, Map, FAO, IRD" />	
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#0271BE" />
+    <meta name="msapplication-navbutton-color" content="#0271BE" />
+	<!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
+    <script src="https://unpkg.com/elm-pep"></script>
+    <style>
+      .map {
+        width: 100%;
+        height:400px;
+      }
+      a.skiplink {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+        padding: 0;
+        border: 0;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+      }
+      a.skiplink:focus {
+        clip: auto;
+        height: auto;
+        width: auto;
+        background-color: #fff;
+        padding: 0.3em;
+      }
+      #map:focus {
+        outline: #4A74A8 solid 0.15em;
+      }
+    </style>
+	<script src="https://cesium.com/downloads/cesiumjs/releases/1.75/Build/Cesium/Cesium.js"></script>
+	<link href="https://cesium.com/downloads/cesiumjs/releases/1.75/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
+	<script type="text/javascript">
+		window.onresize = function(event) {
+			adjustHeight();
+		};
+		function adjustHeight() {
+			if(!document.body) return;
+			var ise = !! ( document.body.className=='embed' );
+			var w = parseInt(window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth);
+			var h = parseInt(window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
+			if ( !ise ) h = h - 100;
+			var dh = parseInt( parseInt(w) / 1.8 );
+			var mw = document.getElementById('mapWrapper');
+			if ( dh > h ) {
+				mw.style.height = h + 'px';
+				mw.style.bottom = '0px';
+			} else {
+				mw.style.height = dh + 'px';
+				mw.style.bottom = 'auto';
+				h = dh;
+			}
+			with ( document.getElementById('map') ) {
+				style.width = w+'px';
+				style.height = h+'px';
+			}
+		}
+		adjustHeight();
+    </script>
+
+
+
+</head>
+
+<body>
+    <!-- Browse Happy --><!--[if lte IE 9]><style type='text/css' scoped>* {display: none;} html, body, br {color: #000000; display: block !important; background-color: #FFFFFF; background-image: none;} a, strong {display: inline !important;} a {color: #0000FF !important;text-decoration: underline !important;} a:visited {color: #800080 !important;} a:active {color: #FF0000 !important;} .browsehappy {position: absolute;width: 100%;height: 100%;left: 0px;top: 0px;background-color: #ffffff;display: block !important;font-family: "Times New Roman";font-size: 25px;text-align: center;margin: 0px;padding: 0px;}</style><div class="browsehappy"><br /><br />You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+    <!-- NoScript --><noscript><style type='text/css' scoped> html, body { overflow: hidden; } a, strong { display: inline !important; } a { color: #0000FF !important; text-decoration: underline !important; } a:visited { color: #800080 !important; } a:active { color: #FF0000 !important; } noscript, .noscript { display: block !important; position: absolute !important; z-index: 1000; width: 100%; height: 100%; left: 0px; top: 0px; background-color: #ffffff; color: #000; font-family: "Times New Roman"; font-size: 25px; text-align: center; margin: 0px; padding: 0px; } </style> <div class="noscript"> <br /> <br /> JavaScript is <strong>required</strong> to access this site. Please <a href="http://www.activatejavascript.org/">enable JavaScript</a> to access this site.</div></noscript>
+   
+    <div class="wrapper">
+
+		<div id="header">
+			<div class="backgrounds">
+				<div class="bgRight"></div>
+				<div class="bgLeft"></div>
+			</div>
+			<div class="elements">
+				<div class="goFaoHome">
+					<a href="http://www.fao.org/" target="_top" title="FAO - Food and Agriculture Organization of the United Nations">
+						<span></span> FAO - Food and Agriculture Organization of the United Nations
+					</a>
+				</div>
+				<div class="divider"><span></span></div>
+				<div class="firmsLogo">
+					<a href="http://firms.fao.org/" target="_top" title="FIRMS - Fisheries and Resources Monitoring System">
+						<span></span> FIRMS - Fisheries and Resources Monitoring System
+					</a>
+				</div>
+				<div class="divider"><span></span></div>
+				<div class="firmsViewer">
+					<h1>Global Tuna Atlas</h1>
+					<h2>Browse catch statistics of tuna and tuna-like species around the world</h2>
+				</div>
+			</div>
+			<div class="goFirmsHome">
+				<a href="http://firms.fao.org/" target="_top" title="FIRMS - Fisheries and Resources Monitoring System">
+					<span></span> FIRMS - Fisheries and Resources Monitoring System
+				</a>
+			</div>
+		</div>
+		
+		<div id="mapWrapper"></div>
+
+	</div>
+
+    <!-- FAO copyYear HTML -->
+    <div id="bottomBar1">
+	<a title="FAO Copyright" target="_blank" href="http://www.fao.org/contact-us/terms/en/">
+	&copy;&nbsp;FAO,
+	<span id="copyYear">2020</span>
+	&nbsp;
+	</a>
+    </div>
+
+	
+	<!-- FAO copyYear script -->
+    <script type="text/javascript" language="javascript">
+	/* <![CDATA[ */
+		if ( location.search.match(/embed=[^0fn&]/i) ) with ( document.getElementsByTagName('body')[0] ) {
+			className='embed';
+			setAttribute('class','embed');
+		}
+		setTimeout( 
+		   function() {
+			var uy = new Date();
+			uy = parseInt(uy.getFullYear() ? uy.getFullYear() : uy.getYear());
+			var py = parseInt( document.getElementById('copyYear').innerHTML );
+			if ( isNaN(uy) || isNaN(py) ) return void(0);
+			if ( uy > py ) document.getElementById('copyYear').innerHTML = String( uy );
+			return void(0);
+		   },
+		   1
+		);
+		setTimeout( adjustHeight, 10 );
+	/* ]]> */
+     </script>
+	 
+	 
+	<script src="main.js"></script> 
+	 
+</body>
+
+</html>
