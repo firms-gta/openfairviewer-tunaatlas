@@ -42,7 +42,7 @@ $(document).ready(function(){
 		'<p>Step 2. the <span style="background-color:#3EA8DF;border:2px solid #fff;padding:6px;border-radius:8px;color:white;font-size:80%;">Access</span> panel enables to query and map or download the selected data: the query is performed by selecting one or more filters over the dataset dimensions (e.g. Fishing fleet, species, fishing gear), the temporal extent,  the catch unit and the aggregation method, where options are between presenting spatial average and cumulated catches across years and quarters.<br> The map is obtained by clicking on the <span style="background-color:#3EA8DF;border:2px solid #fff;padding:4px;border-radius:8px;color:white;font-size:80%;">Query & Map</span> button.</p>'+
 		'<p>The legend panel on the right gives information about the map on display including a summary of the access query performed. The map layer can be removed by clicking on the <span class="glyphicon glyphicon-remove-sign" style="color:#908b8b;"></span> icon in front of the layer title.</p>'+
 		'<p>Once the resulting map is displayed, the user can access a printable version of the map or download the selected data subset, either as CSV or through dedicated reproducible scripts (R, Jupyter).</p>'+
-		'<p style="font-size:80%;"><img alt="European Commission" src="https://www.bluebridge-vres.eu/sites/default/files/european-commission.png" style="float: left; margin-right: 10px; "></img><em>This work has received funding from the European Union\'s Horizon 2020 research and innovation programme under BlueBRIDGE (Grant Agreement No. 675680) and Blue-Cloud (Grant Agreement No.862409).</em></p>',
+		'<p style="font-size:80%;"><img alt="European Commission" src="https://ec.europa.eu/info/sites/default/files/ec-logo-horiz-web_en.jpg" height="40px" style="float: left; margin-right: 10px; "></img><em>This work has received funding from the European Union\'s Horizon 2020 research and innovation programme under BlueBRIDGE (Grant Agreement No. 675680) and Blue-Cloud (Grant Agreement No.862409).</em></p>',
 		OGC_CSW_BASEURL: "https://www.fao.org/fishery/geonetwork/srv/eng/csw"
 	},{	
 		language: {
@@ -50,7 +50,7 @@ $(document).ready(function(){
 			default: "en"
 		},
 		find : {
-			filter: ff.IsLike('dc:identifier', '%global%'),
+			filter: ff.And([ ff.IsLike('dc:identifier', '%global%'), ff.IsLike('dc:title', '%tuna%') ]),
 			filterByWMS: false,
 			datasetInfoHandler : function(metadata){
 				var datasetInfoUrl = "https://www.fao.org/fishery/geonetwork/srv/eng/catalog.search#/metadata/" + metadata.fileIdentifier;
