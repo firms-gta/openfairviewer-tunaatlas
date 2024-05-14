@@ -1,46 +1,48 @@
 {
-  "name": "openfairviewer_firmstunaatlas",
-  "version": "1.0.2",
-  "description": "OpenFairViewer for FIRMS Tuna Atlas",
-  "main": "main.js",
+  "name": "openfairviewer_gta",
+  "version": "1.0.0",
+  "description": "OpenFairViewer for FAO Fisheries & Aquaculture FIRMS Global Tuna Atlas",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "source": "src/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html",
-    "build": "parcel build --public-url ./ index.html"
+    "start": "parcel",
+    "build": "parcel build --public-url ./"
   },
-  "staticFiles": {
-    "staticPath": [
-      {
-        "staticPath": "node_modules/openfairviewer/src/templates",
-        "staticOutDir": "templates"
-      },
-      {
-        "staticPath": "node_modules/openfairviewer/src/img",
-        "staticOutDir": "img"
-      },
-      {
-        "staticPath": "node_modules/openfairviewer/src/i18n",
-        "staticOutDir": "i18n"
-      },
-      {
-        "staticPath": "img/banner",
-        "staticOutDir": "img/banner"
-      },
-      {
-        "staticPath": "img/partners",
-        "staticOutDir": "img/partners"
-      }
-    ]
-  },
+  "multipleStaticFileCopier": [
+    {
+      "origin": "node_modules/openfairviewer/src/templates",
+      "destination": "dist/templates/"
+    },
+    {
+      "origin": "node_modules/openfairviewer/src/img",
+      "destination": "dist/img/"
+    },
+    {
+      "origin": "src/img/banner",
+      "destination": "dist/img/banner"
+    },
+    {
+      "origin": "src/img/partners",
+      "destination": "dist/img/partners"
+    },
+    {
+      "origin": "node_modules/openfairviewer/src/i18n",
+      "destination": "dist/i18n/"
+    }
+  ],
   "author": "Emmanuel Blondel",
+  "license": "MIT",
   "devDependencies": {
-    "cssnano": "^4.1.10",
-    "parcel-bundler": "^1.12.3",
-    "parcel-plugin-static-files-copy": "^2.6.0"
+    "@parcel/optimizer-terser": "^2.10.0",
+    "buffer": "^5.7.1",
+    "parcel": "^2.10.0",
+    "parcel-reporter-multiple-static-file-copier": "^1.0.5",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10"
   },
   "dependencies": {
-    "ol": "^6.5.0",
-    "ol-loadingpanel": "github:eblondel/ol-loadingpanel#2.0.2",
-    "openfairviewer": "github:eblondel/openfairviewer#2.7.6"
+    "datatables.net": "^1.13.1",
+    "datatables.net-dt": "^1.13.1",
+    "openfairviewer": "github:eblondel/openfairviewer"
   }
 }

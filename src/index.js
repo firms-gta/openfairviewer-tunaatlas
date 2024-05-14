@@ -16,7 +16,7 @@ import {TileArcGISRest} from 'ol/source';
 import {Tile as TileLayer} from 'ol/layer';
 
 import OpenFairViewer from 'openfairviewer/src/OpenFairViewer.js';
-import './main.css';
+import './index.css';
 
 window.OFV = null;
 window.ff = null;
